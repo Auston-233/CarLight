@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+		<title>LUMIÈRE</title>
+		<link rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&display=swap">
+		<style>
+			:root {
+				color-scheme: dark;
+				--s: #ff2a3d;
+				box-sizing: border-box
+			}
+
+			html {
+				background: #050608
+			}
+
+			body {
+				margin: 0;
+				min-height: 100dvh;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 12px;
+				padding: max(18px, env(safe-area-inset-top)) 12px max(18px, env(safe-area-inset-bottom));
+				background: radial-gradient(ellipse at 50% 0, #1c212b 0, #07080b 62%);
+				color: #e9e6df;
+				font-family: 'Cormorant Garamond', 'Songti SC', 'Noto Serif SC', Georgia, serif
+			}
+
+			h1 {
+				margin: 0;
+				font-weight: 300;
+				font-size: clamp(26px, 5vw, 40px);
+				letter-spacing: .7em;
+				padding-left: .7em
+			}
+
+			.sub {
+				font-size: 12px;
+				letter-spacing: .5em;
+				opacity: .5;
+				padding-left: .5em;
+				margin-top: -6px
+			}
+
+			svg {
+				width: min(96vw, 900px);
+				height: auto;
+				overflow: visible
+			}
+
+			.mode {
+				text-align: center
+			}
+
+			.mode b {
+				font-size: 26px;
+				font-weight: 400;
+				letter-spacing: .3em;
+				padding-left: .3em;
+				color: var(--s);
+				transition: color .4s
+			}
+
+			.mode span {
+				display: block;
+				font-size: 11px;
+				letter-spacing: .5em;
+				opacity: .5;
+				margin-top: 4px;
+				padding-left: .5em
+			}
+
+			nav {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+				gap: 8px;
+				max-width: 780px
+			}
+
+			button {
+				font: inherit;
+				font-size: 14px;
+				letter-spacing: .18em;
+				color: #cfcac0;
+				background: none;
+				border: 1px solid rgba(255, 255, 255, .18);
+				border-radius: 99px;
+				padding: 7px 15px;
+				cursor: pointer;
+				transition: .25s
+			}
+
+			button:hover {
+				border-color: var(--s)
+			}
+
+			button.on {
+				background: var(--s);
+				border-color: var(--s);
+				color: #0a0a0a
+			}
+
+			.cs {
+				align-items: center;
+				gap: 12px
+			}
+
+			.cs .sw {
+				width: 24px;
+				height: 24px;
+				padding: 0;
+				border-radius: 50%;
+				border: 0
+			}
+
+			.cs .sw.on {
+				box-shadow: 0 0 0 2px #050608, 0 0 0 3.5px #fff
+			}
+		</style>
+	</head>
+	<body>
+		<h1>LUMIÈRE</h1>
+		<div class="sub">Auston Studio</div>
+
+		<svg id="sv" viewBox="0 0 800 470" role="img" aria-label="车灯">
+			<defs>
+				<linearGradient id="bd" x1="0" y1="0" x2="0" y2="1">
+					<stop offset="0" stop-color="#2b313c" />
+					<stop offset=".45" stop-color="#14171d" />
+					<stop offset="1" stop-color="#090a0d" />
+				</linearGradient>
+				<linearGradient id="gls" x1="0" y1="0" x2="0" y2="1">
+					<stop offset="0" stop-color="#232b38" />
+					<stop offset="1" stop-color="#07090d" />
+				</linearGradient>
+				<radialGradient id="bL">
+					<stop offset="0" stop-color="#f33" stop-opacity=".75" />
+					<stop offset=".4" stop-color="#f33" stop-opacity=".22" />
+					<stop offset="1" stop-color="#f33" stop-opacity="0" />
+				</radialGradient>
+				<radialGradient id="bR">
+					<stop offset="0" stop-color="#f33" stop-opacity=".75" />
+					<stop offset=".4" stop-color="#f33" stop-opacity=".22" />
+					<stop offset="1" stop-color="#f33" stop-opacity="0" />
+				</radialGradient>
+				<radialGradient id="gw">
+					<stop offset="0" stop-color="#f33" stop-opacity=".7" />
+					<stop offset="1" stop-color="#f33" stop-opacity="0" />
+				</radialGradient>
+				<linearGradient id="sk">
+					<stop offset="0" stop-color="#f33" stop-opacity="0" />
+					<stop offset=".5" stop-color="#f33" stop-opacity="1" />
+					<stop offset="1" stop-color="#f33" stop-opacity="0" />
+				</linearGradient>
+				<filter id="glow" x="-10%" y="-30%" width="120%" height="160%">
+					<feGaussianBlur stdDeviation="3.5" result="b" />
+					<feMerge>
+						<feMergeNode in="b" />
+						<feMergeNode in="b" />
+						<feMergeNode in="SourceGraphic" />
+					</feMerge>
+				</filter>
+				<filter id="bl">
+					<feGaussianBlur stdDeviation="14" />
+				</filter>
+				<path id="hR" d="M136 252Q136 218 172 218L392 232V296H172Q136 296 136 262Z" fill="#07080b"
+					stroke="#252a33" />
+				<path id="hF" d="M136 252Q136 218 172 218L346 228V292H172Q136 292 136 262Z" fill="#07080b"
+					stroke="#252a33" />
+			</defs>
+
+			<ellipse id="gwE" cx="400" cy="425" rx="430" ry="62" fill="url(#gw)" opacity="0" />
+			<ellipse cx="400" cy="428" rx="340" ry="20" fill="#000" filter="url(#bl)" />
+
+			<g id="gR">
+				<rect x="170" y="372" width="64" height="58" rx="10" fill="#050607" />
+				<rect x="566" y="372" width="64" height="58" rx="10" fill="#050607" />
+				<path d="M235 208Q250 124 330 112H470Q550 124 565 208Z" fill="url(#gls)"
+					stroke="rgba(255,255,255,.08)" />
+				<path d="M118 330Q112 232 165 212H635Q688 232 682 330V395Q682 412 662 412H138Q118 412 118 395Z"
+					fill="url(#bd)" stroke="rgba(255,255,255,.12)" />
+				<rect x="240" y="196" width="320" height="7" rx="3.5" fill="#06070a" />
+				<path d="M138 338H662V395Q662 410 646 410H154Q138 410 138 395Z" fill="#08090c" />
+				<g stroke="#1b2028" stroke-width="2">
+					<path d="M300 390V410M335 390V410M370 390V410M430 390V410M465 390V410M500 390V410" />
+				</g>
+				<use href="#hR" />
+				<use href="#hR" transform="translate(800 0) scale(-1 1)" />
+				<rect x="380" y="236" width="40" height="34" rx="4" fill="#07080b" />
+				<rect x="345" y="346" width="110" height="34" rx="5" fill="#0d0f13" stroke="#2b3039" />
+				<text x="400" y="367" text-anchor="middle" font-size="12" letter-spacing="4" fill="#7b8190"
+					font-family="Cormorant Garamond,serif">LUMIÈRE</text>
+				<g id="itR" filter="url(#glow)"></g>
+			</g>
+
+			<g id="gF" style="display:none">
+				<rect x="170" y="372" width="64" height="58" rx="10" fill="#050607" />
+				<rect x="566" y="372" width="64" height="58" rx="10" fill="#050607" />
+				<path d="M240 208Q255 132 335 118H465Q545 132 560 208Z" fill="url(#gls)"
+					stroke="rgba(255,255,255,.08)" />
+				<path d="M118 330Q112 232 165 212H635Q688 232 682 330V395Q682 412 662 412H138Q118 412 118 395Z"
+					fill="url(#bd)" stroke="rgba(255,255,255,.12)" />
+				<path d="M150 236Q400 196 650 236" fill="none" stroke="rgba(255,255,255,.09)" stroke-width="2" />
+				<path d="M190 336H610L590 396Q588 410 574 410H226Q212 410 210 396Z" fill="#07080a" stroke="#1e232b" />
+				<g stroke="#1b2028" stroke-width="2">
+					<path d="M212 352H588M216 366H584M220 380H580M224 394H576" />
+				</g>
+				<use href="#hF" />
+				<use href="#hF" transform="translate(800 0) scale(-1 1)" />
+				<rect x="360" y="228" width="80" height="72" rx="16" fill="#07080b" stroke="#232830" />
+				<g stroke="#1b2028" stroke-width="2">
+					<path d="M372 252H428M372 268H428M372 284H428" />
+				</g>
+				<circle cx="400" cy="264" r="11" fill="#0c0e12" stroke="#7b8190" />
+				<g id="itF" filter="url(#glow)"></g>
+			</g>
+
+			<circle id="blL" r="160" fill="url(#bL)" style="mix-blend-mode:screen" />
+			<circle id="blR" r="160" fill="url(#bR)" style="mix-blend-mode:screen" />
+			<rect id="stk" x="0" y="256" width="800" height="3" fill="url(#sk)" style="mix-blend-mode:screen"
+				opacity="0" />
+		</svg>
+
+		<div class="mode"><b id="mn"></b><span id="me"></span></div>
+		<nav id="vw"><button data-v="F">前 · FRONT</button><button data-v="R">后 · REAR</button></nav>
+		<nav id="ms"></nav>
+		<nav class="cs" id="cs"></nav>
+
+		<script>
+			const $ = i => document.getElementById(i),
+				NS = "http://www.w3.org/2000/svg";
+			const AM = "#ffa51f",
+				COL = [
+					["绯红", "#ff2a3d"],
+					["橙焰", "#ff6a1a"],
+					["冰蓝", "#7cc8ff"],
+					["紫罗兰", "#b48cff"]
+				];
+			let S = COL[0][1],
+				view = "R",
+				mode = "welcome",
+				auto = 0,
+				timer;
+			const IT = {
+					R: [],
+					F: []
+				},
+				G = {
+					R: $("itR"),
+					F: $("itF")
+				};
+			// 光元素：A 单个，P 左右镜像成对。u：0=靠近中线，1=最外侧
+			const A = (v, k, x, y, w, h, rx, u, s) => {
+				const e = document.createElementNS(NS, "rect");
+				[
+					["x", x],
+					["y", y],
+					["width", w],
+					["height", h],
+					["rx", rx],
+					["opacity", .05]
+				].forEach(a => e.setAttribute(a[0], a[1]));
+				G[v].appendChild(e);
+				IT[v].push({
+					e,
+					k,
+					u,
+					s,
+					a: .05,
+					c: ""
+				})
+			};
+			const P = (v, k, x, y, w, h, rx, u) => {
+				A(v, k, x, y, w, h, rx, u, -1);
+				A(v, k, 800 - x - w, y, w, h, rx, u, 1)
+			};
+			for (let i = 0; i < 50; i++) A("R", "bar", 150 + i * 10, 252, 8, 8, 2.5, Math.abs(i - 24.5) / 24.5, i < 25 ? -1 :
+			1); // 贯穿式光带
+			for (let i = 0; i < 14; i++) P("R", "fin", 168 + i * 15.6, 226 + i * .9, 6, 20, 3, 1 - i / 13); // 光刃
+			for (let i = 0; i < 12; i++) P("R", "turn", 164 + i * 18, 268, 14, 12, 3, 1 - i / 11); // 流水转向
+			P("R", "rev", 262, 312, 64, 9, 4.5, .5); // 倒车灯
+			for (let i = 0; i < 10; i++) P("F", "blade", 165 + i * 17, 226, 11, 24, 3, 1 - i / 9); // 矩阵光刃
+			for (let i = 0; i < 26; i++) P("F", "drl", 150 + i * 7.8, 272 - i / 25 * 8, 6, 4, 2, 1 - i / 25); // 日行灯光链
+
+			const L = [
+				["off", "熄灭", "OFF"],
+				["welcome", "迎宾", "WELCOME"],
+				["left", "左转", "LEFT TURN"],
+				["right", "右转", "RIGHT TURN"],
+				["hazard", "双闪", "HAZARD"],
+				["breathe", "呼吸", "BREATHE"]
+			];
+			const MD = {
+				R: [
+					["tail", "示廓", "TAIL"],
+					["brake", "刹车", "BRAKE"],
+					["rev", "倒车", "REVERSE"]
+				].concat(L),
+				F: [
+					["drl", "日行灯", "DAYTIME"],
+					["low", "近光", "LOW BEAM"],
+					["high", "远光", "HIGH BEAM"]
+				].concat(L)
+			};
+
+			const sw = (u, t) => {
+				const p = t % 1;
+				return p < .72 && u <= p / .72 * 1.05 ? 1 : .06
+			};
+
+			function val(it, t) {
+				const k = it.k,
+					u = it.u,
+					s = it.s,
+					m = mode,
+					hz = m === "hazard",
+					bl = (t * 1.4) % 1 < .5,
+					white = k === "blade" || k === "rev";
+				if (m === "welcome") {
+					const w = (t % 2.8) / 2.8 * 1.8 - .4,
+						b = Math.max(0, 1 - Math.abs(u - w) * 3);
+					return [white ? "#eaf4ff" : k === "turn" ? AM : S, .08 + .92 * b]
+				}
+				if (m === "breathe") return [white ? "#eaf4ff" : S, k === "turn" ? .06 : .15 + .85 * Math.pow(Math.sin(t * 1.3),
+					2)];
+				const tn = hz || (m === "left" && s < 0) || (m === "right" && s > 0);
+				if (k === "turn") return [AM, hz ? (bl ? 1 : .06) : tn ? sw(u, t) : .06];
+				if (k === "rev") return ["#f4f8ff", m === "rev" ? 1 : .05];
+				if (k === "blade") return [m === "high" ? "#e6f2ff" : "#fff1d6", m === "high" ? 1 : m === "low" ? .72 : .04];
+				if (k === "drl") {
+					if (tn) return [AM, hz ? (bl ? 1 : .06) : sw(u, t)];
+					return [S, m === "off" ? .05 : m === "drl" ? .9 : m === "high" ? 1 : .5]
+				}
+				return [S, m === "off" ? .05 : m === "brake" ? 1 : k === "fin" ? .5 : .6]
+			}
+
+			const col = (id, c) => document.querySelectorAll("#" + id + " stop").forEach(s => s.style.stopColor = c);
+			let lt = 0;
+
+			function frame(ms) {
+				const t = ms / 1000,
+					dt = Math.min(t - lt, .1);
+				lt = t;
+				const a = [0, 0],
+					n = [0, 0],
+					ba = [0, 0],
+					bc = [S, S],
+					k = Math.min(1, dt * (mode === "welcome" ? 30 : 16));
+				for (const it of IT[view]) {
+					const [c, v] = val(it, t);
+					it.a += (v - it.a) * k;
+					if (it.c !== c) {
+						it.e.setAttribute("fill", c);
+						it.c = c
+					}
+					it.e.setAttribute("opacity", it.a.toFixed(2));
+					const i = it.s < 0 ? 0 : 1;
+					a[i] += it.a;
+					n[i]++;
+					if (it.a > ba[i]) {
+						ba[i] = it.a;
+						bc[i] = it.c
+					}
+				}
+				const o = [Math.min(.9, a[0] / n[0] * 1.3), Math.min(.9, a[1] / n[1] * 1.3)],
+					hi = mode === "high" ? 1.5 : 1,
+					r = view === "R" ? 150 : 160;
+				$("blL").setAttribute("opacity", o[0]);
+				$("blR").setAttribute("opacity", o[1]);
+				$("blL").setAttribute("r", r * hi * (.85 + .15 * o[0]));
+				$("blR").setAttribute("r", r * hi * (.85 + .15 * o[1]));
+				col("bL", bc[0]);
+				col("bR", bc[1]);
+				const mx = Math.max(o[0], o[1]),
+					dc = o[0] > o[1] ? bc[0] : bc[1];
+				col("sk", dc);
+				col("gw", dc);
+				$("stk").setAttribute("opacity", (mx * .5).toFixed(2));
+				$("gwE").setAttribute("opacity", (mx * .55).toFixed(2));
+				requestAnimationFrame(frame)
+			}
+
+			function setMode(m) {
+				mode = m;
+				[...$("ms").children].forEach(b => b.classList.toggle("on", b.dataset.m === m));
+				const d = MD[view].find(x => x[0] === m);
+				$("mn").textContent = d[1];
+				$("me").textContent = d[2]
+			}
+
+			function setView(v) {
+				view = v;
+				$("gR").style.display = v === "R" ? "" : "none";
+				$("gF").style.display = v === "F" ? "" : "none";
+				[...$("vw").children].forEach(b => b.classList.toggle("on", b.dataset.v === v));
+				const cx = v === "R" ? 255 : 245,
+					cy = v === "R" ? 258 : 252;
+				$("blL").setAttribute("cx", cx);
+				$("blR").setAttribute("cx", 800 - cx);
+				$("blL").setAttribute("cy", cy);
+				$("blR").setAttribute("cy", cy);
+				$("stk").setAttribute("y", v === "R" ? 256 : 266);
+				$("ms").innerHTML = "";
+				MD[v].forEach(d => {
+					const b = document.createElement("button");
+					b.textContent = d[1];
+					b.dataset.m = d[0];
+					b.onclick = () => setMode(d[0]);
+					$("ms").appendChild(b)
+				});
+				setMode(v === "R" ? "tail" : "drl")
+			}
+			[...$("vw").children].forEach(b => b.onclick = () => setView(b.dataset.v));
+
+			COL.forEach((c, i) => {
+				const b = document.createElement("button");
+				b.className = "sw" + (i ? "" : " on");
+				b.title = c[0];
+				b.setAttribute("aria-label", c[0]);
+				b.style.background = c[1];
+				b.onclick = () => {
+					S = c[1];
+					document.documentElement.style.setProperty("--s", S);
+					[...$("cs").querySelectorAll(".sw")].forEach(x => x.classList.toggle("on", x === b))
+				};
+				$("cs").appendChild(b)
+			});
+			const ab = document.createElement("button");
+			ab.textContent = "自动演绎";
+			ab.onclick = () => {
+				auto = !auto;
+				ab.classList.toggle("on", auto);
+				clearInterval(timer);
+				if (auto) timer = setInterval(() => {
+					const l = MD[view],
+						i = l.findIndex(x => x[0] === mode) + 1;
+					if (i >= l.length) {
+						setView(view === "R" ? "F" : "R")
+					} else setMode(l[i][0])
+				}, 3800)
+			};
+			$("cs").appendChild(ab);
+
+			setView("R");
+			setMode("welcome");
+			requestAnimationFrame(frame);
+		</script>
+	</body>
+</html>
